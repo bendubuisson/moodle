@@ -156,6 +156,7 @@ $userform->set_data($user);
 
 if ($usernew = $userform->get_data()) {
     $usercreated = false;
+    $usernew->email = str_replace(' ', '', $usernew->email);
 
     if (empty($usernew->auth)) {
         // User editing self.

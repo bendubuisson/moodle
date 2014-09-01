@@ -49,6 +49,8 @@ function user_create_user($user, $updatepassword = true, $triggerevent = true) {
             throw new moodle_exception('invalidusername');
         }
     }
+    //remove white spaces
+    $user->email = str_replace(' ', '', $user->email);
 
     // Save the password in a temp value for later.
     if ($updatepassword && isset($user->password)) {
