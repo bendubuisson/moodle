@@ -171,6 +171,8 @@ class user_edit_form extends moodleform {
         $user    = $DB->get_record('user', array('id' => $usernew->id));
 
         // Validate email.
+        //remove white spaces
+        $usernew->email = str_replace(' ', '', $usernew->email);
         if (!isset($usernew->email)) {
             // Mail not confirmed yet.
         } else if (!validate_email($usernew->email)) {
