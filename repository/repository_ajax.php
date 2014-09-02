@@ -132,6 +132,8 @@ switch ($action) {
         echo json_encode($search_result);
         break;
     case 'download':
+        //stripping all query strings to pass validation
+        $saveas_filename =  preg_replace("/\?.+/", "", $saveas_filename);
         // validate mimetype
         $mimetypes = array();
         if ((is_array($accepted_types) and in_array('*', $accepted_types)) or $accepted_types == '*') {
