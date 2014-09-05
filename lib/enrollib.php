@@ -134,6 +134,27 @@ function enrol_get_plugin($name) {
 
     return new $class();
 }
+/*
+*Returns true if user has multiple roles
+*@params int $contextid
+* @params int $userid
+* @return boolean
+*/
+
+function user_has_multiple_roles($contextid, $userid)
+{
+    global $DB;
+    $count = $DB->count_records('role_assignments', array('contextid'=>$contextid, 'userid'=>$userid));
+    if($count>1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 /**
  * Returns enrolment instances in given course.
