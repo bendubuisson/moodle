@@ -5397,8 +5397,12 @@ function reset_course_userdata($data) {
                 $params = array('courseid' => $data->courseid, 'courselevel' => CONTEXT_COURSE);
             }
 
+
+
             $rs = $DB->get_recordset_sql($sql, $params);
+
             foreach ($rs as $ue) {
+
                 if (!isset($instances[$ue->enrolid])) {
                     continue;
                 }
@@ -5408,8 +5412,16 @@ function reset_course_userdata($data) {
                     continue;
                 }
 
-                $plugin->unenrol_user($instance, $ue->userid);
-                $data->unenrolled[$ue->userid] = $ue->userid;
+                 if (user_has_multiple_roles($context->id, $ue->userid)) //if user has multiple roles
+                 {
+//                     remove role in course
+                        remove_user_role_from_course($data->unenrol_users, $context->id, $ue->userid);
+                 }
+                 else
+                 {
+                      $plugin->unenrol_user($instance, $ue->userid);
+                      $data->unenrolled[$ue->userid] = $ue->userid;
+                 }
             }
             $rs->close();
         }

@@ -134,6 +134,38 @@ function enrol_get_plugin($name) {
 
     return new $class();
 }
+/*
+*Returns true if user has multiple roles
+*@params int $courseid
+* @params int userid
+* @return boolean
+*/
+
+function user_has_multiple_roles($contextid, $userid)
+{
+    global $DB;
+    $count = $DB->count_records('role_assignments', array('contextid'=>$contextid, 'userid'=>$userid));
+    if($count>1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+/*
+*Removes a certain role for a certain user in a certain course
+*@params int $roleid
+*@params int $courseid
+*@params int $userid
+* @return boolean
+*/
+function remove_user_role_from_course($roleid, $contextid, $userid)
+{
+    global $DB;
+    return $DB->delete_records('role_assignments', array('roleid'=>$roleid, 'contextid'=>$contextid,'userid'=>$userid ));
+}
 
 /**
  * Returns enrolment instances in given course.
