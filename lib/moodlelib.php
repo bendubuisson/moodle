@@ -5415,7 +5415,7 @@ function reset_course_userdata($data) {
                  if (user_has_multiple_roles($context->id, $ue->userid)) //if user has multiple roles
                  {
 //                     remove role in course
-                        remove_user_role_from_course($data->unenrol_users, $context->id, $ue->userid);
+                        remove_user_role_from_course($withroleid, $context->id, $ue->userid);
                  }
                  else
                  {

@@ -164,7 +164,7 @@ function user_has_multiple_roles($contextid, $userid)
 function remove_user_role_from_course($roleid, $contextid, $userid)
 {
     global $DB;
-    return $DB->delete_records('role_assignments', array('roleid'=>$roleid, 'contextid'=>$contextid,'userid'=>$userid ));
+    return $DB->delete_records_select('role_assignments', "roleid=$roleid AND contextid=$contextid AND userid=$userid ");
 }
 
 /**
